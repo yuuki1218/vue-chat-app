@@ -8,28 +8,43 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: {}
+    user: '',
+    errorMsg: '',
   },
   getters: {
     user: (state) => state.user,
+    errorMsg: (state) => state.errorMsg,
   },
   mutations: {
     createUser(state, user) {
-      state.user = user;
+      state.user = user.displayName;
+      console.log(user);
+      console.log(user.displayName);
+    },
+    createErrorMsg(state, error) {
+      if (error) {
+        state.errorMsg = error;
+      } else {
+        state.errorMsg = '';
+      }
     },
   },
   actions: {
     register({ commit }, authData) {
-      firebase.auth().createUserWithEmailAndPassword(authData.email, authData.password)
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(authData.email, authData.password)
         .then((response) => {
           response.user.updateProfile({
             displayName: authData.userName,
           });
           commit('createUser', response.user);
+          commit('createErrorMsg');
         })
         .catch((error) => {
-          alert(error.message);
+          commit('createErrorMsg', error.message);
         });
-    }
-  }
+    },
+    
+  },
 });
