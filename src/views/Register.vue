@@ -54,6 +54,9 @@ export default {
       this.password = '';
     },
     _checkError(){
+        if(!this.$store.getters.errorMsg){
+          this.$router.push('/');
+        }
         this.errorMsg = this.$store.getters.errorMsg;
     }
   },

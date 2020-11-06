@@ -1,6 +1,9 @@
 <template>
   <section id="user-lists-form">
-    <Dashbord></Dashbord>
+    <div id="dashbord">
+    <p>{{ getUserName() }}さんようこそ！</p>
+    <p>残高：1000円</p>
+  </div>
     <h1>ユーザー一覧</h1>
     <div class="user-lists">
       <table>
@@ -25,10 +28,17 @@
 </template>
 
 <script>
-import Dashbord from '../components/Dashbord.vue';
 export default {
-  components: {
-    Dashbord,
+  data() {
+    return {
+      userName: '',
+    }
+  },
+  methods: {
+    getUserName(){
+      this.userName = this.$store.getters.userName;
+      return this.userName;
+    }
   }
 }
 </script>

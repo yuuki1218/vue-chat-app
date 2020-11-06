@@ -8,18 +8,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: '',
+    userName: '',
     errorMsg: '',
   },
   getters: {
-    user: (state) => state.user,
+    userName: (state) => state.userName,
     errorMsg: (state) => state.errorMsg,
   },
   mutations: {
-    createUser(state, user) {
-      state.user = user.displayName;
-      console.log(user);
-      console.log(user.displayName);
+    createUser(state, userName) {
+      state.userName = userName;
     },
     createErrorMsg(state, error) {
       if (error) {
@@ -38,7 +36,7 @@ export default new Vuex.Store({
           response.user.updateProfile({
             displayName: authData.userName,
           });
-          commit('createUser', response.user);
+          commit('createUser', authData.userName);
           commit('createErrorMsg');
         })
         .catch((error) => {
