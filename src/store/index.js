@@ -43,6 +43,17 @@ export default new Vuex.Store({
           commit('createErrorMsg', error.message);
         });
     },
-    
+    login({ commit }, authData) {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(authData.email, authData.password)
+        .then((response) => {
+          commit('createUser', response.user.displayName);
+          commit('createErrorMsg');
+        })
+        .catch((error) => {
+          commit('createErrorMsg', error.message);
+        });
+    },
   },
 });
