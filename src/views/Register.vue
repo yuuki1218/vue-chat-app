@@ -16,11 +16,9 @@
         <input type="text" name="password" id="password" v-model="password" />
       </div>
       <div class="button-wrap">
-        <!-- <router-link to="/"> -->
         <div class="register-button">
           <input type="submit" value="送信" @click="register" />
         </div>
-        <!-- </router-link> -->
         <div class="login-link">
           <router-link to="/login">
             <a>ログインの方はこちら</a>
@@ -48,12 +46,12 @@ export default {
         email: this.email,
         password: this.password,
       });
-      setTimeout(this._checkError, 1000);
+      setTimeout(this.checkError, 1000);
       this.userName = '';
       this.email = '';
       this.password = '';
     },
-    _checkError(){
+    checkError(){
         if(!this.$store.getters.errorMsg){
           this.$router.push('/');
         }
